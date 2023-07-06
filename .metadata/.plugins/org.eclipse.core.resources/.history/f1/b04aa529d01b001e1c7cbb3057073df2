@@ -1,0 +1,21 @@
+package com.ecg.page_object;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
+
+public class PO_Login {
+
+	public WebDriver ldriver;
+	
+	public PO_Login(WebDriver rdriver)
+	{
+		ldriver = rdriver;
+		PageFactory.initElements(rdriver,this);
+	}
+	
+	
+	@FindBy(xpath = "")
+	@CacheLookup
+	WebElement btnlogin;
+	
+}

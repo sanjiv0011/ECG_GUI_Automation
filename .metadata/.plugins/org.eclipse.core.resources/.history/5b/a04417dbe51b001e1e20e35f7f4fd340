@@ -1,0 +1,9 @@
+baseUrl = https://dev.addi.care/
+email = fmerchant2.ecg@yopmail.com
+password = ******
+chromepath = ./Driver//chromedriver.exe
+firefoxpath = ./Driver//firefoxdriver.exe
+msedgepath = ./Driver//msedgedriver.exe
+	
+	 
+	

@@ -1,0 +1,114 @@
+package com.ecg.test_cases;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
+
+import com.ecg.uitilities.ReadConfigFiles;
+
+public class BaseClass {
+	
+	// It provides global access to the driver
+	public static WebDriver driver;
+	
+	
+	// This is enable the logger to log the messages on console and Automation.log files under Logs folder
+	public Logger logger = LogManager.getLogger(this.getClass());
+	
+	// It fetch data from the ReadConfig files and ReadConfig Files reads data from the config.properties files
+	ReadConfigFiles rcf = new ReadConfigFiles();
+	public String base_url = rcf.getApplicationUrl();
+	public String email = rcf.getEmail();
+	public String password = rcf.getPassword();
+	
+	
+	// Location where screenshots will store
+	public String screenshot_path;
+	
+	
+	// it decides  the browser, which on going to be start(it takes command from the "testng.xml" files
+	@Parameters("browser")
+	@BeforeClass
+	public void setup(String br)
+	{
+		if(br == "chrome")
+		{
+			// it read driver address from the drivers folders
+			//System.setProperty("webdriver.chromedriver",System.getProperty("user.dir"+"//Drivers//chromedriver.exe"));
+			
+			// it read driver address from the Configurations folder through code
+			System.setProperty("webdriver.chromedriver", rcf.getChromePath());
+			driver = new ChromeDriver();
+			logger.info("Chrome driver selected...");
+		}
+		else if(br == "firefox")
+		{
+			// it read driver address from the drivers folders
+			//System.setProperty("webdriver.geckodriver",System.getProperty("user.dir"+"//Drivers//geckodriver.exe"));
+			
+			// it read driver address from the Configurations folder through code
+			System.setProperty("webdriver.chromedriver", rcf.getFireFoxPath());
+			driver = new FirefoxDriver();
+			logger.info("Fire for driver selected");
+		}
+		else if(br == "edge")
+		{	// it read driver address from the drivers folders
+			//System.setProperty("webdriver.msedgedriver",System.getProperty("user.dir"+"//Drivers//msedgedriver.exe"));
+			
+			// it read driver address from the Configurations folder through code
+			System.setProperty("webdriver.msedgedriver",rcf.getMsEdgePath());
+			driver = new EdgeDriver();
+			logger.info("Edge driver selected");
+		}
+	}
+	
+	
+	
+	// It shutdowns the current working browser
+	@AfterClass
+	public void teardown()
+	{
+		driver.quit();
+		logger.info("Driver shutdown...");
+	}
+
+
+	// To Capture Screenshot on test cases failure 
+	public String captureScreen(WebDriver driver, String targetName) throws IOException
+	{
+		String repName;
+		repName = "_Screenshots"+".png";
+		screenshot_path = System.getProperty("user.dir"+"//Screenshots//"+targetName+repName);
+		
+		// It takes screen shots
+		TakesScreenshot ts = (TakesScreenshot)driver; 
+		
+		// It save the screen shots as File type
+		File source = ts.getScreenshotAs(OutputType.FILE);
+		
+		// it read/write files from the given path
+		File target = new File(screenshot_path);
+		
+		// to copy the capture screen file into source to target location
+		FileUtils.copyFile(source, target); 
+		
+		// It is return the path when where ever this function is going to be call
+		return screenshot_path;
+		
+		
+	}
+	
+	
+}

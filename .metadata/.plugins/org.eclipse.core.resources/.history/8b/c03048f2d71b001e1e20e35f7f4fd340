@@ -1,0 +1,81 @@
+package com.ecg.test_cases;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
+
+import com.ecg.uitilities.ReadConfigFiles;
+
+public class BaseClass {
+	
+	public static WebDriver driver;
+	public Logger logger = LogManager.getLogger(this.getClass());
+	
+	ReadConfigFiles rcf = new ReadConfigFiles();
+	public String base_url = rcf.getApplicationUrl();
+	public String email = rcf.getEmail();
+	public String password = rcf.getPassword();
+	
+	
+	
+	// it decides  the browser, which on going to be start(it takes command from the "testng.xml" files
+	@Parameters("browser")
+	@BeforeClass
+	public void setup(String br)
+	{
+		if(br == "chrome")
+		{
+			// it read driver address from the drivers folders
+			//System.setProperty("webdriver.chromedriver",System.getProperty("user.dir"+"//Drivers//chromedriver.exe"));
+			
+			// it read driver address from the Configurations folder through code
+			System.setProperty("webdriver.chromedriver", rcf.getChromePath());
+			driver = new ChromeDriver();
+			logger.info("Chrome driver selected...");
+		}
+		else if(br == "firefox")
+		{
+			// it read driver address from the drivers folders
+			//System.setProperty("webdriver.geckodriver",System.getProperty("user.dir"+"//Drivers//geckodriver.exe"));
+			
+			// it read driver address from the Configurations folder through code
+			System.setProperty("webdriver.chromedriver", rcf.getFireFoxPath());
+			driver = new FirefoxDriver();
+			logger.info("Fire for driver selected");
+		}
+		else if(br == "edge")
+		{	// it read driver address from the drivers folders
+			//System.setProperty("webdriver.msedgedriver",System.getProperty("user.dir"+"//Drivers//msedgedriver.exe"));
+			
+			// it read driver address from the Configurations folder through code
+			System.setProperty("webdriver.msedgedriver",rcf.getMsEdgePath());
+			driver = new EdgeDriver();
+			logger.info("Edge driver selected");
+		}
+	}
+	
+	
+	
+	// It shutdowns the current working browser
+	@AfterClass
+	public void teardown()
+	{
+		driver.quit();
+		logger.info("Driver shutdown...");
+	}
+
+
+	// To Capture Screenshot on test cases failure 
+	public String captureScreen(WebDriver driver, String targetName)
+	{
+		
+	}
+	
+	
+}

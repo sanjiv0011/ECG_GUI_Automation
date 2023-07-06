@@ -1,0 +1,11 @@
+package com.ecg.test_cases;
+
+public class BaseClass {
+	
+	@BeforeClass
+	public void setup()
+	{
+		
+	}
+
+}

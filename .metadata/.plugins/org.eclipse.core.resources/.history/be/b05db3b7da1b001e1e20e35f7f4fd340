@@ -1,0 +1,10 @@
+package com.ecg.test_cases;
+
+public class TC_Login extends BaseClass {
+	
+	@Test(priority =1)
+	public void test_Login()
+	{
+		
+	}
+}

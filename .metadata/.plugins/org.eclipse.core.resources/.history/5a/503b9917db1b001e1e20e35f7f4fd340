@@ -1,0 +1,17 @@
+package com.ecg.test_cases;
+
+import org.testng.annotations.Test;
+
+import com.ecg.page_object.PO_Login;
+
+public class TC_Login extends BaseClass {
+	
+	@Test(priority =1)
+	public void test_Login() throws InterruptedException
+	{
+		driver.manage().window().maximize();
+		Thread.sleep(5000);
+		
+		PO_Login lgn = new PO_Login(driver);
+	}
+}

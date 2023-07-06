@@ -1,0 +1,6 @@
+baseUrl=
+email=fmerchant2.ecg@yopmail.com
+password=Tester123!
+chromepath=./Drivers/chromedriver.exe
+firefoxpath=./Drivers/geckodriver.exe
+msedgepath=./Drivers/msedgedriver.exe

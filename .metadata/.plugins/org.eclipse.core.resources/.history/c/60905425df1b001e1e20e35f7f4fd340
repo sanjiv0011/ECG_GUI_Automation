@@ -1,0 +1,11 @@
+14:37:00.954 [main] INFO  org.testng.internal.Utils - [TestNG] Running:
+  D:\Sanjiv_QA\Eclipse Project\ECG_WorkSpace\ECG_GUI_Automation\testng.xml
+
+14:47:46.689 [main] INFO  org.testng.internal.Utils - [TestNG] Running:
+  D:\Sanjiv_QA\Eclipse Project\ECG_WorkSpace\ECG_GUI_Automation\testng.xml
+
+14:53:37.559 [main] INFO  org.testng.internal.Utils - [TestNG] Running:
+  D:\Sanjiv_QA\Eclipse Project\ECG_WorkSpace\ECG_GUI_Automation\testng.xml
+
+14:53:41.725 [main] INFO  com.ecg.test_cases.TC_Login - Chrome driver selected...
+14:53:57.725 [main] INFO  com.ecg.test_cases.TC_Login - Driver shutdown...
